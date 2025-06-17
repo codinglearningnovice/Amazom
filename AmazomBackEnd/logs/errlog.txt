@@ -98,3 +98,5 @@
 20250613	01:18:22	50d345ec-cc61-4b5a-8cbd-3c213581eaa8	SyntaxError:Unexpected end of JSON input
 20250617	01:01:49	3b1197ac-e6c9-4010-8ee6-2d4209041395	SyntaxError:Unexpected token 'j', ..."username":jlk,"baske"... is not valid JSON
 20250617	03:15:09	e76f06b2-dd12-421d-822f-697577e16fb1	SyntaxError:Unexpected end of JSON input
+20250617	15:12:24	f5e2fd61-ff95-4f84-83a3-c6f2a331020b	Error:not allowed by cors
+20250617	15:12:24	68d7d4d6-7ac0-4c35-bc16-d6e17d61dd1d	Error:not allowed by cors
