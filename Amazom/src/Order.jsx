@@ -43,8 +43,11 @@ function Order({ order }) {
       ))}
 
       
-            <h3 className="order_total">Order Total: {formatCurrency(getBasketTotal(basket))}</h3>
-          
+          <>
+            <h3 className="order_total">
+              Order Total: {formatCurrency(order.data.amount / 100)}
+            </h3>
+          </>
         
     </div>
   );
