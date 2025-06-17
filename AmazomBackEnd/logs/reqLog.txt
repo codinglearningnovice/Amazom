@@ -6073,3 +6073,4 @@
 20250617	15:18:07	c5f50f36-b2bf-4917-b7e8-e2c6027d9a09	GET	https://amazomecommerc-general-frontend.onrender.com	/product
 20250617	15:20:50	785f73f5-0e22-4c7a-87f6-e69d73907377	GET	http://localhost:5173	/product
 20250617	15:20:50	8d4b61e6-dab4-46bb-96cf-5734b1cd49ef	GET	http://localhost:5174	/orders?username=icey%40gmail.com
+20250617	15:27:41	8c34a0bf-7d64-48d8-90ff-e8bca5289733	OPTIONS	https://amazomecommerc-general-frontend.onrender.com	/auth
