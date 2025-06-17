@@ -1,6 +1,7 @@
 export const initialState = {
     basket: [],
     user:null,
+    authUser:null,
 }
 
 
@@ -39,6 +40,13 @@ const reducer = (state, action) => {
           ...state,
           user:action.user
         };
+
+      case "SET_INAPPUSER":
+        return {
+          ...state,
+          authUser: action.authUser,
+        };
+
       default:
         return state;
     }

@@ -8,7 +8,7 @@
 const bcrypt = require("bcrypt");
 
 const jwt = require("jsonwebtoken");
-require("dotenv").config;
+require("dotenv").config();
 const User = require("../model/User");
 const Employee = require("../model/Employee");
 //const fsPromises = require("fs/promises");
@@ -27,19 +27,21 @@ const handleLogin = async (req, res) => {
   const foundUser =
     foundEmployee || (await User.findOne({ username: user }).exec());
   //console.log("Found user:", foundUser);
-  if (!foundUser) return res.sendStatus(401).json("user ot found");
+  if (!foundUser) return res.sendStatus(401);
 
   const match = await bcrypt.compare(pwd, foundUser.password);
+  console.log("Comparing passwords:", pwd, foundUser.password);
+
   if (match) {
     const payload = {
       UserInfo: {
         username: foundUser.username,
-        roles: foundUser.roles,
+        roles: foundUser.roles || {},
       },
     };
 
     const accessToken = jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, {
-      expiresIn: "250s",
+      expiresIn: "5m",
     });
 
     const refreshToken = jwt.sign(payload, process.env.REFRESH_TOKEN_SECRET, {
@@ -56,14 +58,16 @@ const handleLogin = async (req, res) => {
     }
     res.cookie(
       "jwt",
-      JSON.stringify({ refreshToken, roles: foundUser.roles }),
+       refreshToken, 
       {
         httpOnly: true,
-        sameSite: "None",
-        secure: true,
-        maxAge: 24 * 60 * 60 * 1000, // 1 day expiration
+        sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax",
+        secure: process.env.NODE_ENV === "production",
+        maxAge: 24 * 60 * 60 * 1000,
       }
     );
+
+    console.log("Set-Cookie header:", res.getHeaders());
     
     /*res.cookie("jwt", refreshToken, {
       httpOnly: true,
@@ -73,7 +77,7 @@ const handleLogin = async (req, res) => {
     })*/;
     res.json({
       accessToken,
-      firstname: foundUser.firstname,
+      username: foundUser.username,
       
     });
   } else {

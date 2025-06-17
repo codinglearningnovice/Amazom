@@ -36,6 +36,9 @@ function SignupPage() {
 
       if (response.status === 201) {
         clearForm();
+        localStorage.setItem("accessToken", response.data.accessToken);
+        localStorage.setItem("username", response.data.username);
+        dispatch({ type: "Set_User", authuser: response.data.username });
         navigate("/postproduct", { replace: true });
       }
 

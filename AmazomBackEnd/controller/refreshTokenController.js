@@ -27,15 +27,20 @@ const handleRefreshToken = async(req, res) => {
   console.log("Found user:", foundUser);
   if (!foundUser) return res.sendStatus(403);
 
+
   jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, secret) => {
-    if (err || foundUser.USER !== secret.username) return res.sendStatus(403);
-    const roles = Object.values(foundUser.roles);
-    const employeeID = Object.values(foundUser.employeeId);
-    const accessToken = jwt.sign(
-      { UserInfo: { username: secret.username, roles: roles,employeeId: employeeID } },
-      process.env.REFRESH_TOKEN_SECRET,
-      { expiresIn: "250s" }
-    );
+    if (err || foundUser.username !== secret.UserInfo.username) return res.sendStatus(403);
+    //const roles = Object.values(foundUser.roles);
+    //const employeeID = Object.values(foundUser.employeeId);
+    const payload = {
+      UserInfo: {
+        username: foundUser.username,
+        roles: foundUser.roles || {},
+      }
+    }
+    const accessToken = jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, {
+      expiresIn: "5m",
+    });
 
     res.json(accessToken);
   });

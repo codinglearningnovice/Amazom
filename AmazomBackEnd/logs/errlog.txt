@@ -90,3 +90,11 @@
 20250511	09:21:23	b7ae82b7-174b-416a-8b78-bc1b10c56ec6	TypeError:req.roles.map is not a function
 20250511	09:24:12	b4aae722-73a3-4081-a0f7-a77d88a38259	TypeError:req.roles.map is not a function
 20250513	15:17:24	e9429393-fb1c-4796-806c-178656b43ff3	PayloadTooLargeError:request entity too large
+20250529	18:16:22	7cf14328-e437-4683-94b0-d11b60733a69	Error:not allowed by cors
+20250529	23:29:10	2156d691-2511-4413-ac51-e57d2ccb54c9	ReferenceError:Cannot access 'token' before initialization
+20250529	23:44:18	52349884-2818-4a82-a28a-f2838f7de7a5	ReferenceError:Cannot access 'token' before initialization
+20250613	00:23:00	96ec6d9d-75c9-46ad-a118-c83e990b3362	SyntaxError:Unexpected end of JSON input
+20250613	01:12:52	8fd960d3-f0c7-4f65-bcd7-527bc0f9e018	SyntaxError:Unexpected end of JSON input
+20250613	01:18:22	50d345ec-cc61-4b5a-8cbd-3c213581eaa8	SyntaxError:Unexpected end of JSON input
+20250617	01:01:49	3b1197ac-e6c9-4010-8ee6-2d4209041395	SyntaxError:Unexpected token 'j', ..."username":jlk,"baske"... is not valid JSON
+20250617	03:15:09	e76f06b2-dd12-421d-822f-697577e16fb1	SyntaxError:Unexpected end of JSON input

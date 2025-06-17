@@ -1,48 +1,55 @@
-import React, {useState} from 'react'
-import "./login.css"
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useState } from "react";
+import "./login.css";
+import { Link, useNavigate } from "react-router-dom";
 //import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
-import {createUserWithEmailAndPassword,signInWithEmailAndPassword} from "./Authentication"
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from "./Authentication";
 //import { auth } from './firebase';
-
-
+//import { useAuth } from "./Authentication";
+import { useStateValue } from "./StateProvider";
 
 function Login() {
   const navigate = useNavigate(); //useHistory();
-  const [email, setEmail] = useState('');  
-  const [password, setPassword] = useState('');  
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  //const [{}, dispatch] = useStateValue();
+  //const { signInWithEmailAndPassword } = useAuth();
 
-  const user = email;
-  const pwd = password;
-
-  const signin = async(e) => {
+  const signin = async (e) => {
     e.preventDefault();
     try {
-      const { status, data } = await signInWithEmailAndPassword(user, pwd);
-      console.log("Response:", status, data);
+      const { status, data } = await signInWithEmailAndPassword(
+        email,
+        password
+      );
 
-      if (status === 201) {
-        navigate("/");
+      if (status === 200) {
+          navigate("/");
       } else {
-        alert(
-          data.message || "check your credentials again"
-        );
+        alert(data.message || "check your credentials again");
       }
     } catch (error) {
       console.error("Error:", error);
       alert(error.message || "An error occurred.");
     }
-  }
-  
+  };
+
   const register = async (e) => {
     e.preventDefault();
-    
+
     try {
-      const { status, data } = await createUserWithEmailAndPassword(user, pwd);
+      const { status, data } = await createUserWithEmailAndPassword(
+        email,
+        password
+      );
+
       console.log("Response:", status, data);
 
       if (status === 201) {
-        navigate("/");
+        alert("User created,Now login")
+        navigate("/login");
       } else {
         alert(
           data.message || "Failed to register. Please check your credentials."
@@ -53,7 +60,6 @@ function Login() {
       alert(error.message || "An error occurred.");
     }
   };
-  
 
   return (
     <div className="logi">
@@ -99,4 +105,4 @@ function Login() {
   );
 }
 
-export default Login
+export default Login;

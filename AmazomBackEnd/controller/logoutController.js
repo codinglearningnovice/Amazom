@@ -11,28 +11,38 @@ const User = require("../model/User");
 const Employee = require("../model/Employee");
 
 
+const handleLogout = async (req, res) => {
+  const cookies = req.cookies;
+ // console.log("Cookies received in logout:", cookies);
+
+  if (!cookies?.jwt) {
+    return res.sendStatus(204); 
+  }
+
+  const refreshToken = cookies.jwt;
+  const foundEmployee = await Employee.findOne({ refreshToken }).exec();
+  const foundUser =
+    foundEmployee || (await User.findOne({ refreshToken }).exec());
+
+  if (foundUser) {
+    foundUser.refreshToken = "";
+    await foundUser.save();
+    console.log("Refresh token cleared for user:", foundUser.username);
+  }
+
+  res.clearCookie("jwt", {
+    httpOnly: true,
+    sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax",
+    secure: process.env.NODE_ENV === "production",
+  });
+
+  res.sendStatus(204); 
+};
 
 
 
-const handleLogout =async (req, res) => {
-
-    const cookies = req.cookies;
-    
-    if (!cookies?.jwt)
-
-      return res
-        .sendStatus(204)  
-
-    const refreshToken = cookies.jwt
     //const foundUser = userDB.user.find(person => person.refreshToken === refreshToken);
-    const foundEmployee = await Employee.findOne({ refreshToken }).exec();
-    const foundUser = foundEmployee || await User.findOne({ refreshToken }).exec()
-
-    if (!foundUser){
-      res.clearCookie("jwt", { httpOnly: true, sameSite: "None", secure: true });
-      return res.sendStatus(204);
-    }
-        
+   
     
     /*const otherUsers = userDB.user.filter(person => person.username !== foundUser.refreshToken)
     const currentUser = {...foundUser, refreshToken: ""};
@@ -40,13 +50,8 @@ const handleLogout =async (req, res) => {
     await fsPromises.writeFile(
         path.join(__dirname, "..", "model", "users.json"), JSON.stringify(userDB.user)
     )*/
-    foundUser.refreshToken = "";
-    const result = await foundUser.save()
+    
 
-    console.log("", result);
-    res.clearCookie("jwt", {httpOnly: true,sameSite:"None",secure:true})
-    res.sendStatus(204);
 
-}
 
 module.exports = {handleLogout}

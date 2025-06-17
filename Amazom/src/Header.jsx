@@ -1,22 +1,25 @@
-import React from 'react'
-import './Header.css'
+import React from "react";
+import "./Header.css";
 import SearchIcon from "@mui/icons-material/Search";
 import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
-import { Link } from 'react-router-dom';
-import { useStateValue } from './StateProvider';
-import { auth } from './firebase';
-
+import { Link } from "react-router-dom";
+import { useStateValue } from "./StateProvider";
+//import { auth } from './firebase';
+import { logout } from "./Authentication";
+import { useNavigate } from "react-router-dom";
 
 
 function Header() {
-
-  const [{basket,user},dispatch]= useStateValue();
-  
-  const handleAuthentication = () => {
-    if (user){
-      auth.signOut();
+  const [{ basket, authUser }, dispatch] = useStateValue();
+  const navigate = useNavigate();
+  const handleAuthentication =async () => {
+    if (authUser) {
+      const response =await logout(dispatch);
+      if (response.status === 204) {
+        navigate("/login");
+      }
+      //auth.signOut();
     }
-  
   };
 
   return (
@@ -34,13 +37,11 @@ function Header() {
       </div>
 
       <div className="header_av">
-        <Link to={!user && "/login"}>
+        <Link to={!authUser && "/login"}>
           <div onClick={handleAuthentication} className="header_option">
-            <span className="header_option1">
-              Hello {user?.email||"Guest"}
-            </span>
+            <span className="header_option1">Hello {authUser || "Guest"}</span>
             <span className="header_option2">
-              {user ? "Sign Out" : "Sign in"}
+              {authUser ? "Sign Out" : "Sign in"}
             </span>
           </div>
         </Link>
@@ -67,4 +68,4 @@ function Header() {
   );
 }
 
-export default Header 
+export default Header;

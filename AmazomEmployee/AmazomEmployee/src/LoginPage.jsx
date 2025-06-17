@@ -29,8 +29,10 @@ function LoginPage() {
       });
       //console.log("this is the respose",response.data);
       if (response.status === 200) {
+        localStorage.setItem("accessToken", response.data.accessToken);
+        localStorage.setItem("username", response.data.username);
         //userDetails = {}
-        dispatch({ type: "Set_User", authuser: response.data.firstname });
+        dispatch({ type: "Set_User", authuser: response.data.username });
         
         navigate("/postproduct", { replace: true });
       }

@@ -1,22 +1,38 @@
 import moment from 'moment'
-import React from 'react'
+import React, { useState } from 'react'
 import CheckOutProduct from './CheckOutProduct'
 import CurrencyFormat from 'react-currency-format';
 import "./Order.css"
+import { useStateValue } from './StateProvider';
 
 
 /*istall moment for passig timestamp*/
-function Order() {
+function Order({ order }) {
+  if (
+    !order ||
+    !order.id ||
+    !order.data ||
+    !order.data.createdAt ||
+    !order.data.basket ||
+    !Array.isArray(order.data.basket)
+  ) {
+    console.warn("Invalid order prop:", order);
+    return null;
+  }
+
+  const { id, data } = order;
+
   return (
     <div className="order">
       <h2>Order</h2>
-      <p>{moment.unix(order.data.created).format("MMMM Do YYYY, h:mma")}</p>
+      <p>{moment(data.createdAt).format("MMMM Do YYYY, h:mma")}</p>
       <p className="order_id">
         <small>{order.id}</small>
       </p>
 
       {order.data.basket?.map((item) => (
         <CheckOutProduct
+          key={item.id}
           id={item.id}
           title={item.title}
           image={item.image}
@@ -27,13 +43,13 @@ function Order() {
       ))}
 
       <CurrencyFormat
-        renderText={(value) =>(
-         <>
-            <h3 className='order_total'>Order Total: {value}</h3>
-         </>
+        renderText={(value) => (
+          <>
+            <h3 className="order_total">Order Total: {value}</h3>
+          </>
         )}
         decimalScale={2}
-        value={order.data.amount/100}
+        value={order.data.amount / 100}
         displayType={"text"}
         thousandSeparator={true}
         prefix={"$"}

@@ -5,12 +5,15 @@ import App from './App.jsx'
 import { StateProvider } from './StateProvider.jsx'
 import * as serviceWorker from "./serviceWorker"
 import reducer, { initialState } from './reducer.jsx'
+import ErrorBoundary from './ErrorBoundary.jsx'
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <StateProvider initialState={initialState} reducer={reducer}>
-      <App />
-    </StateProvider>
+    <ErrorBoundary>
+      <StateProvider initialState={initialState} reducer={reducer}>
+        <App />
+      </StateProvider>
+    </ErrorBoundary>
   </StrictMode>
 );
 

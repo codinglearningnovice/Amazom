@@ -1,59 +1,105 @@
-import React, { useEffect, useState } from 'react'
-import "./Orders.css"
-import { useStateValue } from './StateProvider'
-import { db } from './firebase'
-import { PaymentElement } from '@stripe/react-stripe-js'
-import Order from './Order'
+import React, { useEffect, useState } from "react";
+import "./Orders.css";
+import { useStateValue } from "./StateProvider";
+//import { db } from './firebase'
+//import { PaymentElement } from '@stripe/react-stripe-js'
+import instance from "./axios";
+import Order from "./Order";
+import io from "socket.io-client";
 
-
-
-
+const socket = io("http://localhost:3600");
 
 function Orders() {
+  const [{ basket, authUser }, dispatch] = useStateValue();
 
-  const [{basket,user},dispatch]= useStateValue()
+  const [orders, setOrders] = useState([]);
 
-  const [orders, setOrders]= useState([])
+  useEffect(() => {
+    if (!authUser) {
+      console.log("No authUser, skipping fetch");
+      setOrders([]);
+      return;
+    }
 
-  useEffect(()=>{
-      
-     if (user) {
+    console.log("authUser:", authUser);
 
-        db.collection("users")
-          .doc(user?.uid)
-          .collection("orders")
-          .orderBy("created", "desc")
-          .onSnapshot((snapshot) => {
-            setOrders(
-              snapshot.docs.map((doc) => ({
-                id: doc.id,
-                data: doc.data(),
-              }))
-            );
-          });
-     }else{
+    const fetchOrders = async () => {
+      try {
+        const response = await instance.get("/orders", {
+          params: { username: authUser },
+        });
+        console.log("Response data:", response.data);
+        if (!Array.isArray(response.data)) {
+          console.error("Invalid response.data:", response.data);
 
-        setOrders([])
+          return;
+        }
 
-     }
-       
+        const transformedOrders = response.data.map((order) => {
+          console.log("Mapping order:", order); // Debug each order
+          return {
+            id: order._id,
+            data: { ...order },
+          };
+        });
+        console.log("Transformed orders:", transformedOrders); // Debug
+        setOrders([...transformedOrders]); //
+      } catch (error) {
+        console.error("Error fetching orders:", error);
+        if (error.response?.status !== 404) {
+          setOrders([]);
+        }
+      }
+    };
+    fetchOrders();
 
+    // WebSocket setup
+    socket.emit("join-user", authUser);
+    socket.on("orders-updated", (updatedOrders) => {
+      console.log("Received real-time order update:", updatedOrders);
 
-  },[user])
+      const ordersArray = Array.isArray(updatedOrders)
+        ? updatedOrders
+        : updatedOrders && typeof updatedOrders === "object"
+        ? [updatedOrders]
+        : [];
+      if (!ordersArray.length) {
+        console.error("No valid orders in WebSocket update:", updatedOrders);
+        return;
+      }
+      const transformedOrders = ordersArray.map((order) => ({
+        id: order._id,
+        data: { ...order },
+      }));
+      console.log("Transformed WebSocket orders:", transformedOrders);
+      setOrders([...transformedOrders]);
+    });
+    // Cleanup
+    return () => {
+      socket.off("orders-updated");
+      // Optionally leave room: socket.emit('leave-user', user.uid);
+    };
+  }, [authUser]);
 
+  useEffect(() => {
+    console.log("Updated orders state:", orders); // Debug state changes
+  }, [orders]);
 
   return (
-    <div className='orders'>
-       <h1>Your orders</h1> 
+    <div className="orders">
+      <h1>Your orders</h1>
 
-       <div className="orders_orders">
-            {orders?.map(order => (
-               <Order order = {order}/>
-
-            ))}
-       </div>
+      {orders.length === 0 || !Array.isArray(orders) ? (
+        <p>No orders found.</p>
+      ) : (
+        <div>
+          {orders.map((order, index) => (
+            <Order key={order.id || `order-${index}`} order={order} />
+          ))}
+        </div>
+      )}
     </div>
-  )
+  );
 }
 
-export default Orders
+export default Orders;
