@@ -4,7 +4,8 @@ import { useStateValue } from "./StateProvider";
 import CheckOutProduct from "./CheckOutProduct";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import CurrencyFormat from "react-currency-format";
+//import CurrencyFormat from "react-currency-format";
+import { formatCurrency } from "./CurrencyFormat";
 import { getBasketTotal } from "./reducer";
 import { PaystackButton } from "react-paystack";
 import instance from "./axios";
@@ -93,14 +94,11 @@ function PPayment() {
             <h3>Payment Method</h3>
           </div>
           <div className="paymet_details">
-            <CurrencyFormat
-              renderText={(value) => <h3>Order Total: {value}</h3>}
-              decimalScale={2}
-              value={getBasketTotal(basket)}
-              displayType={"text"}
-              thousandSeparator={true}
-              prefix={"$"}
-            />
+            
+              
+              <h3>Order Total: {formatCurrency(getBasketTotal(basket))}</h3> 
+              
+            
           </div>
           <PaystackButton {...componentProps} />
         </div>

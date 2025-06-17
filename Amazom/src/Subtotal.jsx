@@ -1,6 +1,7 @@
 import React from "react";
 import "./Subtotal.css";
-import CurrencyFormat from "react-currency-format";
+//import CurrencyFormat from "react-currency-format";
+import { formatCurrency } from "./CurrencyFormat";
 import { useStateValue } from "./StateProvider";
 import { getBasketTotal } from "./reducer";
 import { useNavigate } from "react-router-dom";
@@ -15,25 +16,17 @@ function Subtotal() {
   
   return (
     <div className="subtotal">
-      <CurrencyFormat
-        renderText={(value) => (
-          <>
+      
             <p>
               Subtotal ({basket?.length} items):
-              <strong>{value}</strong>
+              <strong>{formatCurrency(getBasketTotal(basket))}</strong>
             </p>
             <small className="subtotal_gift">
               <input type="checkbox" /> This order contains a gift
             </small>
-          </>
-        )}
-        decimalScale={2}
-        value={getBasketTotal(basket)}
-        displayType={"text"}
-        thousandSeparator={true}
-        prefix={"$"}
-      />
-      <button className="button" onClick={e =>navigate("/payment")}>proceed to paymet</button>
+          
+       
+      <button className="button" onClick={e =>navigate("/payment")}>proceed to pay</button>
     </div>
   );
 }

@@ -6054,3 +6054,11 @@
 20250617	11:58:04	e6d11011-fb14-4b24-9b42-893ac4358b76	GET	http://localhost:5173	/product
 20250617	11:58:04	cbf3a48a-32fd-42ba-9fe3-52cc01f7ed4d	GET	http://localhost:5173	/product
 20250617	12:01:41	77c3be24-0fbe-4a8e-bfa0-8e1d695c0c3e	GET	http://localhost:5174	/orders?username=icey%40gmail.com
+20250617	12:45:08	9dc2f588-8d8e-45d9-b3c8-b3bdb61e4ad4	GET	http://localhost:5174	/product
+20250617	12:45:08	ec6f6094-d82a-4e9c-946b-db206ce08619	GET	http://localhost:5174	/product
+20250617	12:46:48	a473d773-291c-47f9-a144-29817d98cfc2	GET	http://localhost:5174	/product
+20250617	12:46:48	11e441cf-5452-4052-9620-2bdd3c97e791	GET	http://localhost:5174	/product
+20250617	12:47:41	10ef4ced-fdfc-44dd-82e8-7eebb30e5ae9	OPTIONS	http://localhost:5174	/orders
+20250617	12:47:41	96c7b765-6bd5-4031-aba6-fc614efc5cef	POST	http://localhost:5174	/orders
+20250617	12:47:41	b2f5387e-ad06-4e92-8819-5c5ae4818c39	GET	http://localhost:5174	/orders?username=icey%40gmail.com
+20250617	12:47:42	6935a45f-8b8f-4269-a3d1-96b54c5bc3ff	GET	http://localhost:5174	/orders?username=icey%40gmail.com
