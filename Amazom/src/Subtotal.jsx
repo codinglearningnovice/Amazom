@@ -18,7 +18,7 @@ function Subtotal() {
     <div className="subtotal">
       
             <p>
-              Subtotal ({basket?.length} items):
+              Subtotal ({basket?.length} items)::
               <strong>{formatCurrency(getBasketTotal(basket))}</strong>
             </p>
             <small className="subtotal_gift">
@@ -26,7 +26,7 @@ function Subtotal() {
             </small>
           
        
-      <button className="button" onClick={e =>navigate("/payment")}>proceed to pay</button>
+      <button className="button" onClick={e =>navigate("/payment")}>proceed to payment</button>
     </div>
   );
 }
