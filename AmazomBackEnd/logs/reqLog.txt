@@ -6069,3 +6069,7 @@
 20250617	15:09:36	b3b6fc8a-6d74-43ca-8550-afba1a5d4719	GET	http://localhost:5174	/orders?username=icey%40gmail.com
 20250617	15:12:24	ca0b62e7-abc3-458c-b576-b208e9570780	OPTIONS	https://amazomecommerc-general-frontend.onrender.com	/product
 20250617	15:12:24	90324a58-ce08-4d1e-a76d-475bf4ddb842	GET	https://amazomecommerc-general-frontend.onrender.com	/product
+20250617	15:18:07	dc928691-8054-49a9-b9ea-3fa2a89c779f	OPTIONS	https://amazomecommerc-general-frontend.onrender.com	/product
+20250617	15:18:07	c5f50f36-b2bf-4917-b7e8-e2c6027d9a09	GET	https://amazomecommerc-general-frontend.onrender.com	/product
+20250617	15:20:50	785f73f5-0e22-4c7a-87f6-e69d73907377	GET	http://localhost:5173	/product
+20250617	15:20:50	8d4b61e6-dab4-46bb-96cf-5734b1cd49ef	GET	http://localhost:5174	/orders?username=icey%40gmail.com

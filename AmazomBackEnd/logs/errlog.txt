@@ -100,3 +100,5 @@
 20250617	03:15:09	e76f06b2-dd12-421d-822f-697577e16fb1	SyntaxError:Unexpected end of JSON input
 20250617	15:12:24	f5e2fd61-ff95-4f84-83a3-c6f2a331020b	Error:not allowed by cors
 20250617	15:12:24	68d7d4d6-7ac0-4c35-bc16-d6e17d61dd1d	Error:not allowed by cors
+20250617	15:18:07	ddb5ebb9-10a1-4444-bfd2-6e547dcf32f4	Error:not allowed by cors
+20250617	15:18:07	8ffea27d-4029-4c0f-b4c4-638a67d921c9	Error:not allowed by cors

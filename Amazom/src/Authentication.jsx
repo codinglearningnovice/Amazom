@@ -23,7 +23,7 @@ export const createUserWithEmailAndPassword = async (user, pwd) => {
 };
 
 export const signInWithEmailAndPassword = async (user, pwd) => {
-  const response = await fetch("http://localhost:3600/auth", {
+  const response = await fetch("https://amazomecommerc.onrender.com/auth", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     credentials: "include",
