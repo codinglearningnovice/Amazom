@@ -1,7 +1,7 @@
 import moment from 'moment'
 import React, { useState } from 'react'
 import CheckOutProduct from './CheckOutProduct'
-import CurrencyFormat from 'react-currency-format';
+//import CurrencyFormat from 'react-currency-format';
 import "./Order.css"
 import { useStateValue } from './StateProvider';
 
@@ -42,18 +42,10 @@ function Order({ order }) {
         />
       ))}
 
-      <CurrencyFormat
-        renderText={(value) => (
-          <>
-            <h3 className="order_total">Order Total: {value}</h3>
-          </>
-        )}
-        decimalScale={2}
-        value={order.data.amount / 100}
-        displayType={"text"}
-        thousandSeparator={true}
-        prefix={"$"}
-      />
+      
+            <h3 className="order_total">Order Total: {formatCurrency(getBasketTotal(basket))}</h3>
+          
+        
     </div>
   );
 }
