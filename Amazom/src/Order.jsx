@@ -46,7 +46,7 @@ function Order({ order }) {
       
           <>
             <h3 className="order_total">
-              Order Total: {formatCurrency(order.data.amount / 100)}
+              Order Total: {formatCurrency(order.data.amount )}
             </h3>
           </>
         

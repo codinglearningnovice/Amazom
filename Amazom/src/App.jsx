@@ -23,7 +23,7 @@ import SearchProducts from "./SearchProducts";
 
 function App() {
   const [authUser, setauthUser] = useState(null);
-  const [{}, dispatch] = useStateValue();
+  const [{ basket }, dispatch] = useStateValue();
 
   useEffect(() => {
     onAuthStateChanged(setauthUser);
@@ -42,6 +42,22 @@ function App() {
       });
     }
   }, [authUser]);
+  useEffect(() => {
+    const storedBasket = localStorage.getItem("basket");
+    console.log("kkdjrjrjr",storedBasket);
+    if (storedBasket) {
+      try {
+        dispatch({
+          type: "SET_BASKET",
+          basket: JSON.parse(storedBasket),
+        });
+        console.log("tkis is the item here", JSON.parse(storedBasket));
+      } catch (error) {
+        console.error("Error parsing basket from localStorage", error);
+      }
+    }
+  }, []); 
+
   console.log("this is the user", authUser);
   return (
     <Router>

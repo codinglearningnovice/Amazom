@@ -9,15 +9,16 @@ import { formatCurrency } from "./CurrencyFormat";
 import { getBasketTotal } from "./reducer";
 import { PaystackButton } from "react-paystack";
 import instance from "./axios";
+import { use } from "react";
 
 function PPayment() {
   const [{ basket, authUser }, dispatch] = useStateValue();
   const paystack_key = import.meta.env.VITE_PAYSTACK_SECRET;
-
+  
   const config = {
     reference: new Date().getTime().toString(),
     email: String(authUser),
-    amount: getBasketTotal(basket), //Amount is in the country's lowest currency. E.g Kobo, so 20000 kobo = N200
+    amount: getBasketTotal(basket)*100, //Amount is in the country's lowest currency. E.g Kobo, so 20000 kobo = N200
     publicKey: paystack_key,
   };
   const amount = getBasketTotal(basket)
@@ -38,6 +39,7 @@ function PPayment() {
       type: "EMPTY_BASKET",
       basket: [],
     });
+    localStorage.removeItem("basket");
     navigate("/orders", { replace: true });
     console.log(reference);
   };

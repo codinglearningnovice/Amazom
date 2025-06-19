@@ -24,7 +24,7 @@ const createNewOrder = async (req, res) => {
 };
 
 const getAllOrders = async (req, res) => {
-  const { username } = req.query.query;
+  const { username } = req.query;
   console.log("type of query",username);
   if (!username)
     return res.status(401).json({ error: "User not authenticated" });

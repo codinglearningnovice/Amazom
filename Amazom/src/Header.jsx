@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Header.css";
 import SearchIcon from "@mui/icons-material/Search";
 import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
@@ -7,6 +7,7 @@ import { useStateValue } from "./StateProvider";
 //import { auth } from './firebase';
 import { logout } from "./Authentication";
 import { useNavigate } from "react-router-dom";
+import { use } from "react";
 
 function Header() {
   const [{ basket, authUser }, dispatch] = useStateValue();
@@ -29,6 +30,11 @@ function Header() {
     }
   };
 
+  useEffect(() => {
+    if (!basket.length) return
+    localStorage.setItem("basket", JSON.stringify(basket));
+  },[basket])
+  console.log(localStorage.getItem("basket"));
   return (
     <div className="header">
       <Link to="/">

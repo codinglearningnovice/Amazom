@@ -6,27 +6,29 @@ import { useStateValue } from "./StateProvider";
 import { getBasketTotal } from "./reducer";
 import { useNavigate } from "react-router-dom";
 
-
 function Subtotal() {
-  const navigate =useNavigate();
-  const[{basket,authUser},dispatch] = useStateValue();
-  console.log("this is callig from subtoal:",authUser);
-  
-  
-  
+  const navigate = useNavigate();
+  const [{ basket, authUser }, dispatch] = useStateValue();
+  console.log("this is callig from subtoal:", authUser);
+
   return (
     <div className="subtotal">
-      
-            <p>
-              Subtotal ({basket?.length} items)::
-              <strong>{formatCurrency(getBasketTotal(basket))}</strong>
-            </p>
-            <small className="subtotal_gift">
-              <input type="checkbox" /> This order contains a gift
-            </small>
-          
-       
-      <button className="button" onClick={e =>navigate("/payment")}>proceed to payment</button>
+      <p>
+        Subtotal ({basket?.length} items)::
+        <strong>{formatCurrency(getBasketTotal(basket))}</strong>
+      </p>
+      <small className="subtotal_gift">
+        <input type="checkbox" /> This order contains a gift
+      </small>
+
+      <button
+        className="button"
+        onClick={(e) =>
+          basket?.length > 0 ? navigate("/payment") : alert("basket is empty")
+        }
+      >
+        proceed to payment
+      </button>
     </div>
   );
 }
