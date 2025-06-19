@@ -31,9 +31,9 @@ function Header() {
   };
 
   useEffect(() => {
-    if (!basket.length) return
+    if (!basket.length) return;
     localStorage.setItem("basket", JSON.stringify(basket));
-  },[basket])
+  }, [basket]);
   console.log(localStorage.getItem("basket"));
   return (
     <div className="header">

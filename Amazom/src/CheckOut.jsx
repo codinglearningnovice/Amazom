@@ -3,11 +3,10 @@ import "./CheckOut.css";
 import Subtotal from "./Subtotal";
 import { useStateValue } from "./StateProvider";
 import CheckOutProduct from "./CheckOutProduct";
-import {PaystackButton} from "react-paystack";
+import { PaystackButton } from "react-paystack";
 
 function CheckOut() {
-  const [{ basket,user }] = useStateValue();
-  
+  const [{ basket, user }] = useStateValue();
 
   return (
     <div className="checkout">
@@ -18,7 +17,6 @@ function CheckOut() {
           className="checkout_ad"
         />
         <div>
-          
           <h2 className="checkout_title">Your Shopping Basket</h2>
           {basket.map((item) => (
             <CheckOutProduct

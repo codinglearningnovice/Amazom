@@ -16,7 +16,6 @@ import PPayment from "./PPayment";
 import Orders from "./Orders";
 import SearchProducts from "./SearchProducts";
 
-
 /*const promise = loadStripe(
   "pk_test_51QeLNOPDBn2nIcH7qbr02rv7Yi5FLQtPiefUSzKyvsnomANGSTnw8nYjs10iAToCivELFA1sFEjWIhDuCm15bSYL00uNDL0F8i"
 );*/
@@ -44,7 +43,7 @@ function App() {
   }, [authUser]);
   useEffect(() => {
     const storedBasket = localStorage.getItem("basket");
-    console.log("kkdjrjrjr",storedBasket);
+    console.log("kkdjrjrjr", storedBasket);
     if (storedBasket) {
       try {
         dispatch({
@@ -56,7 +55,7 @@ function App() {
         console.error("Error parsing basket from localStorage", error);
       }
     }
-  }, []); 
+  }, []);
 
   console.log("this is the user", authUser);
   return (

@@ -112,7 +112,7 @@ export const logout = async (dispatch) => {
     console.log("Logout response:", response);
     localStorage.removeItem("username");
     localStorage.removeItem("accessToken");
-    localStorage.removeItem("basket")
+    localStorage.removeItem("basket");
     dispatch({ type: "SET_USER", user: null });
     console.log("i got here");
     return { status: 204 };

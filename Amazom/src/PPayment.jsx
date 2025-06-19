@@ -14,22 +14,24 @@ import { use } from "react";
 function PPayment() {
   const [{ basket, authUser }, dispatch] = useStateValue();
   const paystack_key = import.meta.env.VITE_PAYSTACK_SECRET;
-  
+
   const config = {
     reference: new Date().getTime().toString(),
     email: String(authUser),
-    amount: getBasketTotal(basket)*100, //Amount is in the country's lowest currency. E.g Kobo, so 20000 kobo = N200
+    amount: getBasketTotal(basket) * 100, //Amount is in the country's lowest currency. E.g Kobo, so 20000 kobo = N200
     publicKey: paystack_key,
   };
-  const amount = getBasketTotal(basket)
-  const data = { authUser,basket, amount  };
+  const amount = getBasketTotal(basket);
+  const data = { authUser, basket, amount };
   const postOrders = async () => {
     try {
-        const response = await instance.post("/orders", data);
-        if (response.status === 201) {
-            alert("Thanks for your purchase");
-        }
-    } catch (e) {console.log("database error",e)}
+      const response = await instance.post("/orders", data);
+      if (response.status === 201) {
+        alert("Thanks for your purchase");
+      }
+    } catch (e) {
+      console.log("database error", e);
+    }
   };
   const handlePaystackSuccessAction = (reference) => {
     // Implementation for whatever you want to do with reference and after success call.
@@ -52,7 +54,6 @@ function PPayment() {
   };
 
   const componentProps = {
-    
     ...config,
     text: "Make Payment",
     onSuccess: (reference) => handlePaystackSuccessAction(reference),
@@ -97,11 +98,7 @@ function PPayment() {
             <h3>Payment Method</h3>
           </div>
           <div className="paymet_details">
-            
-              
-              <h3>Order Total: {formatCurrency(getBasketTotal(basket))}</h3> 
-              
-            
+            <h3>Order Total: {formatCurrency(getBasketTotal(basket))}</h3>
           </div>
           <PaystackButton {...componentProps} />
         </div>
