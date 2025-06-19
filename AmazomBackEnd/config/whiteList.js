@@ -1,5 +1,5 @@
 const whiteList = [
-  "https://amazomecommerc-general-frontend.onrender.com",
+  "https://amazomfront.onrender.com",
   "http://localhost:3600",
   "http://localhost:5174",
   "http://localhost:5173",
