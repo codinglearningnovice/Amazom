@@ -1,0 +1,27 @@
+.search_product{
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 1500px;
+}
+.search_product_headig{
+    margin-top: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+.search_products{
+    
+        display: flex;
+        flex-wrap: wrap; /* Allows items to move to the next line */
+        justify-content: flex-start; /* Aligns items from the start */
+        
+        align-items: flex-start; /* Aligns items to the top */
+    }
+    
+    
+    .search_products > * {
+        flex: 1 1 calc(15%); /* Each product takes about 25% width */
+        max-width: 250px; /* Restricts maximum width */
+    }

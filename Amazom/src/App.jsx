@@ -14,6 +14,8 @@ import PPayment from "./PPayment";
 //import { loadStripe } from "@stripe/stripe-js";
 //import { Elements } from "@stripe/react-stripe-js";
 import Orders from "./Orders";
+import SearchProducts from "./SearchProducts";
+
 
 /*const promise = loadStripe(
   "pk_test_51QeLNOPDBn2nIcH7qbr02rv7Yi5FLQtPiefUSzKyvsnomANGSTnw8nYjs10iAToCivELFA1sFEjWIhDuCm15bSYL00uNDL0F8i"
@@ -71,6 +73,15 @@ function App() {
               <>
                 <Header />
                 <Orders />
+              </>
+            }
+          ></Route>
+          <Route
+            path="/search"
+            element={
+              <>
+                <Header />
+                <SearchProducts />
               </>
             }
           ></Route>

@@ -50,6 +50,7 @@ function PPayment() {
   };
 
   const componentProps = {
+    
     ...config,
     text: "Make Payment",
     onSuccess: (reference) => handlePaystackSuccessAction(reference),

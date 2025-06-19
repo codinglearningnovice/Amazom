@@ -4,6 +4,7 @@ import CheckOutProduct from './CheckOutProduct'
 //import CurrencyFormat from 'react-currency-format';
 import "./Order.css"
 import { useStateValue } from './StateProvider';
+import { formatCurrency } from './CurrencyFormat';
 
 
 /*istall moment for passig timestamp*/

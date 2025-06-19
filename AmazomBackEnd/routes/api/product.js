@@ -9,9 +9,10 @@ const roles_list = require("../../config/roles_list");
 
 router
   
-
+  .get("/search",productController.getSpecificProduct)
   .get("/",productController.getAllProduct)
   .get("/:id",productController.getProduct);
+  
 
 router  .use(verifyJWT);
 

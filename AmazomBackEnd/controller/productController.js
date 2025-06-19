@@ -94,7 +94,23 @@ const updateProduct = async (req, res) => {
   }
 };
 
+const getSpecificProduct = async (req, res) => {
+  const searchTerm = req.query.query
+  if(!searchTerm) {
+    return res.status(400).json({ message:"search term is required"})
+  }
+  try {
+    const query = { $or:[{ product_name :{$regex:searchTerm,$options:"i"}}]  };
+    const result = await Product.find(query);
+    res.json(result);
+    console.log("sedig result");
+  } catch (error) {
+    console.error("Error during search:", error);
+    res.status(500).json({ message: "Server error during search" });
 
+    
+  }
+}
 const deleteProduct =async (req, res) => {
   if (req?.body?.id) {
     return res.status(400).json({ message: "id parameter required" });
@@ -119,7 +135,7 @@ const getProduct = async(req, res) => {
       .status(400)
       .json({ message: `product ${req.params.id} ot foud` });
   }
-
+  console.log("hereeee");
   res.json(product);
 };
 
@@ -129,4 +145,5 @@ module.exports = {
   deleteProduct,
   getProduct,
   creatNewProduct,
+  getSpecificProduct,
 };

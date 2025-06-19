@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Header.css";
 import SearchIcon from "@mui/icons-material/Search";
 import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
@@ -8,17 +8,24 @@ import { useStateValue } from "./StateProvider";
 import { logout } from "./Authentication";
 import { useNavigate } from "react-router-dom";
 
-
 function Header() {
   const [{ basket, authUser }, dispatch] = useStateValue();
+  const [search, setSearch] = useState();
   const navigate = useNavigate();
-  const handleAuthentication =async () => {
+  const handleAuthentication = async () => {
     if (authUser) {
-      const response =await logout(dispatch);
+      const response = await logout(dispatch);
       if (response.status === 204) {
         navigate("/login");
       }
       //auth.signOut();
+    }
+  };
+
+  const handleSearch = () => {
+    if (search) {
+      console.log("search butto clicked");
+      navigate(`/search?query=${search}`);
     }
   };
 
@@ -32,8 +39,16 @@ function Header() {
       </Link>
 
       <div className="header_search">
-        <input className="header_searchIput" type="text" />
-        <SearchIcon className="header_searchIcon" />
+        <input
+          className="header_searchIput"
+          value={search}
+          type="text"
+          onChange={(e) => setSearch(e.target.value)}
+          placeholder="Search products..."
+        />
+        <button className="headerbutton" onClick={handleSearch} type="submit">
+          <SearchIcon className="header_searchIcon" />
+        </button>
       </div>
 
       <div className="header_av">
@@ -46,16 +61,25 @@ function Header() {
           </div>
         </Link>
 
-        <div className="header_option">
-          <span className="header_option1">Returs</span>
-          <span className="header_option2">&Orders</span>
-        </div>
+        <Link
+          to={authUser ? "/orders" : "#"}
+          onClick={() => {
+            if (!authUser) {
+              alert("You must be logged in to view orders!");
+            }
+          }}
+        >
+          <div className="header_option">
+            <span className="header_option1">Returs</span>
+            <span className="header_option2">&Orders</span>
+          </div>
+        </Link>
 
         <div className="header_option">
           <span className="header_option1">Your</span>
           <span className="header_option2">Prime</span>
         </div>
-        <Link to="/checkout">
+        <Link to={!authUser ? "/login" : "/checkout"}>
           <div className="header_option_basket">
             <ShoppingBasketIcon />
             <span className="header_option1 header_basketCount">
