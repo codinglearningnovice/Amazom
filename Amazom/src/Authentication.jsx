@@ -3,7 +3,7 @@ import instance from "./axios";
 import { useNavigate } from "react-router-dom";
 
 export const createUserWithEmailAndPassword = async (user, pwd) => {
-  const response = await fetch("https://amazomecommerc.onrender.com/register", {
+  const response = await fetch("https://amazom.onrender.com/register", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     credentials: "include",
@@ -23,7 +23,7 @@ export const createUserWithEmailAndPassword = async (user, pwd) => {
 };
 
 export const signInWithEmailAndPassword = async (user, pwd) => {
-  const response = await fetch("https://amazomecommerc.onrender.com/auth", {
+  const response = await fetch("https://amazom.onrender.com/auth", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     credentials: "include",
