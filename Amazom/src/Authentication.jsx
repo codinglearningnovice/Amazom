@@ -101,7 +101,7 @@ export const triggerAuthStateChanged = () => {
 export const logout = async (dispatch) => {
   //const navigate = useNavigate()
   try {
-    const response = await fetch("http://localhost:3600/logout", {
+    const response = await fetch("https://amazom.onrender.com/logout", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
