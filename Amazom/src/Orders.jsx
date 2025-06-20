@@ -7,7 +7,7 @@ import instance from "./axios";
 import Order from "./Order";
 import io from "socket.io-client";
 
-const socket = io("http://localhost:3600");
+const socket = io("https://amazom.onrender.com");
 
 function Orders() {
   const [{ basket, authUser }, dispatch] = useStateValue();
